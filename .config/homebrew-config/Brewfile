@@ -1,0 +1,48 @@
+tap 'heroku/brew'
+tap 'homebrew/bundle'
+tap 'homebrew/cask'
+tap 'homebrew/core'
+tap 'homebrew/services'
+tap 'homebrew/cask-font'
+
+# Main Cask Applications
+cask 'activitywatch'
+#cask 'stats'
+#cask 'bettertouchtool'
+#cask 'webstorm'
+#cask 'iterm2'
+#cask 'cloudmounter'
+#cask 'google-chrome'
+
+# Programming services
+cask 'docker'
+brew 'docker'
+brew 'docker-compose'
+brew 'python'
+brew 'git'
+brew 'yarn'
+brew 'nvm'
+brew 'wget'
+brew 'vifm'
+#brew 'nginx'
+#brew 'postgresql'
+#brew 'redis'
+#brew 'php'
+#brew 'composer'
+
+# Terminal
+cask 'hyper'
+brew 'antigen'
+brew 'chroma'
+brew 'tmux'
+brew 'htop'
+brew 'fzf'
+brew 'zsh'
+brew 'neovim'
+brew 'ripgrep'
+brew 'tree-sitter'
+brew 'tig'
+#brew 'trash'
+
+# Fonts
+cask 'font-hack-nerd-font'

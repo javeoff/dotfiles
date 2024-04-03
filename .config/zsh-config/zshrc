@@ -1,0 +1,94 @@
+# Path 
+source /opt/homebrew/share/antigen/antigen.zsh
+source ~/.env.sh
+export ZSH_DIR=$CONFIG_DIR/zsh-config
+export PATH=/usr/local/bin:$PATH
+source "$HOME/.cargo/env"
+
+export OPENAI_BASE_URL=1
+export OPENAI_API_HOST=1
+
+# [[ -r ~/projects/znap/znap.zsh ]] ||
+#     git clone --depth 1 -- https://github.com/marlonrichert/zsh-snap.git ~/projects/znap
+# source ~/projects/znap/znap.zsh
+
+# Load tmux session
+if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+  exec tmux
+fi
+
+# Include modules
+source $ZSH_DIR/modules/nvm.sh
+source $ZSH_DIR/modules/git.sh
+source $ZSH_DIR/modules/launchctl.sh
+source $ZSH_DIR/modules/sql.sh
+source $ZSH_DIR/modules/alias.sh
+
+bindkey "^k" history-search-backward
+bindkey "^j" history-search-forward
+bindkey -s ";;" "^r"
+
+antigen use oh-my-zsh
+antigen bundle tig
+antigen bundle git
+antigen bundle docker
+antigen bundle docker-compose
+antigen bundle aliases
+antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zdharma-continuum/fast-syntax-highlighting
+antigen bundle agkozak/zsh-z
+antigen bundle colorize
+antigen bundle gko/ssh-connect
+antigen bundle sunlei/zsh-ssh
+antigen bundle gko/listbox
+antigen bundle web-search
+antigen bundle bossjones/boss-docker-zsh-plugin
+antigen bundle aubreypwd/zsh-plugin-fd
+antigen bundle clvv/fasd
+antigen bundle wookayin/fzf-fasd
+
+# znap source agkozak/zsh-z
+# znap source marlonrichert/zsh-autocomplete
+# bindkey '\t' menu-select "$terminfo[kcbt]" menu-select
+# bindkey -M menuselect '\t' menu-complete "$terminfo[kcbt]" reverse-menu-complete
+# zstyle ':completion:*:*' matcher-list 'm:{[:lower:]-}={[:upper:]_}' '+r:|[.]=**'
+# zstyle ':autocomplete:*' delay 0.5
+
+
+# Include plugins
+plugins=(
+    web-search
+    git
+    docker
+    history
+    aliases
+    tig
+    zsh-syntax-highlighting
+    fast-syntax-highlighting
+    z
+    docker
+    docker-compose
+    git-auto-fetch
+    colorize
+    zsh-ssh
+)
+
+antigen apply
+
+source $ZSH_DIR/plugins/vcs.zsh
+source $ZSH_DIR/plugins/prompt.zsh
+
+ZSH_COLORIZE_TOOL=chroma
+
+# pnpm
+export PNPM_HOME="~/Library/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+
+# Make zsh know about hosts already accessed by SSH
+zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
+
+# antigen apply
+
+export DENO_INSTALL="/Users/bondarev/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
