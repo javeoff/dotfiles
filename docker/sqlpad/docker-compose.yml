@@ -1,0 +1,35 @@
+version: '3'
+services:
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: RHAwdfc5YMaSbW
+    volumes:
+      - sqlpad-postgres:/docker-entrypoint-initdb.d
+  sqlpad:
+    # To use Dockerfile at root of this project, use build instead of image
+    # build: ../../
+    image: sqlpad/sqlpad:5
+    hostname: 'sqlpad'
+    ports:
+      - '3333:3000'
+    environment:
+      SQLPAD_ADMIN: 'javeoff@yandex.ru'
+      SQLPAD_ADMIN_PASSWORD: 'Cb5fcigiwk4ZuX'
+      SQLPAD_APP_LOG_LEVEL: debug
+      SQLPAD_WEB_LOG_LEVEL: warn
+      SQLPAD_SEED_DATA_PATH: /etc/sqlpad/seed-data
+      SQLPAD_CONNECTIONS__pgdemo__name: Postgres demo
+      SQLPAD_CONNECTIONS__pgdemo__driver: postgres
+      SQLPAD_CONNECTIONS__pgdemo__host: postgres
+      SQLPAD_CONNECTIONS__pgdemo__database: sqlpad
+      SQLPAD_CONNECTIONS__pgdemo__username: admin
+      SQLPAD_CONNECTIONS__pgdemo__password: RHAwdfc5YMaSbW
+      SQLPAD_CONNECTIONS__pgdemo__multiStatementTransactionEnabled: 'true'
+      SQLPAD_CONNECTIONS__pgdemo__idleTimeoutSeconds: 86400
+    volumes:
+      - ./data:/etc/sqlpad/seed-data
+volumes:
+  sqlpad-postgres:
