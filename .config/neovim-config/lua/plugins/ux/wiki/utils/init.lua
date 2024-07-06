@@ -1,3 +1,0 @@
-return {
-	'tadmccorkle/markdown.nvim'
-}
