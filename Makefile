@@ -1,3 +1,6 @@
+update: brew_update
+brew_update:
+	brew bundle --file=Brewfile
 fix_perm:
 	sudo chmod -R +x ./scripts
 set_key:
