@@ -12,4 +12,4 @@ nvm install --lts
 nvm use --lts
 bash ./packages.sh
 source .env set
-oco config set OCO_API_KEY=$OPENAI_KEY
+oco config set OCO_API_KEY=$OPENAI_API_KEY

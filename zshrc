@@ -13,7 +13,11 @@ alias gco='git checkout'
 alias gb='git branch'
 alias go='git show'
 alias ga='git add'
-alias gaa='git add . && oco'
+alias gq='git add . && oco'
+
+alias fs='git diff --cached | sgpt stdin "Analyze this diff for potential secrets like API keys, tokens, or passwords. Answer shortly - file and secret or answer no secrets"'
+alias fc='git diff --cached | sgpt stdin "Analyze this git diff only added lines, ignoring changes already made (-codeline - is the removed code not to analyze), to find and highlight JS comments that are not suitable for production (such as TODOs, FIXME, temporary debug notes, or commented-out code that should be removed). Give a very short answer, and if no comments are found, just say: No comments."'
+alias gaa='git add . && { fs; fc } & wait'
 
 # Modules
 source ~/antigen.zsh
@@ -24,3 +28,6 @@ antigen bundle agkozak/zsh-z
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export $(grep -v '^#' .env | xargs -0)
+source .env set
