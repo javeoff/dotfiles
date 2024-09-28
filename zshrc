@@ -13,6 +13,7 @@ alias gco='git checkout'
 alias gb='git branch'
 alias go='git show'
 alias ga='git add'
+alias gaa='git add . && oco'
 
 # Modules
 source ~/antigen.zsh

@@ -11,3 +11,5 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
 nvm install --lts
 nvm use --lts
 bash ./packages.sh
+source .env set
+oco config set OCO_API_KEY=$OPENAI_KEY
